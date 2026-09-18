@@ -72,7 +72,14 @@ pnpm start
 
 This full-stack application (Node.js/Express + React Vite + tRPC) can be deployed easily on:
 
-### Option 1: Render.com (Recommended)
+### Option 1: GitHub Pages (Automated via GitHub Actions)
+The repository includes a automated GitHub Actions workflow (`.github/workflows/deploy.yml`):
+1. In your GitHub repository settings, go to **Settings** > **Pages**.
+2. Under **Build and deployment** > **Source**, select **GitHub Actions**.
+3. Every push to the `main` branch will automatically test, build, and deploy the store to:
+   `https://radwasengr.github.io/SAKINA-NaturalStones/`
+
+### Option 2: Render.com (Full-Stack with Express Backend)
 1. Go to [Render.com](https://render.com) and click **New +** -> **Web Service**.
 2. Connect your GitHub repository: `https://github.com/RadwaSengr/SAKINA-NaturalStones`.
 3. Configure settings:
@@ -85,9 +92,10 @@ This full-stack application (Node.js/Express + React Vite + tRPC) can be deploye
    - `OWNER_OPEN_ID`: `sakina_owner_admin`
    - *(Optional)* `DATABASE_URL`: MySQL connection URL (if omitted, uses local persistent storage).
 
-### Option 2: Railway.app
+### Option 3: Railway.app (Full-Stack)
 1. Go to [Railway.app](https://railway.app) and create a **New Project** from GitHub.
 2. Select `RadwaSengr/SAKINA-NaturalStones`.
 3. Railway automatically detects the project and starts it.
+
 
 

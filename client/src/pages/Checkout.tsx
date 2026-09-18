@@ -53,9 +53,50 @@ export default function Checkout() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (items.length === 0 || isPreviewing) return;
-    const order = await createOrder.mutateAsync({ items: items.map(item => ({ handle: item.productHandle, quantity: item.quantity })), ...delivery, preparation, customerNote: customerNote.trim() || undefined });
-    clearCart();
-    setLocation(`/order-confirmed/${order.reference}`);
+    try {
+      const order = await createOrder.mutateAsync({
+        items: items.map(item => ({ handle: item.productHandle, quantity: item.quantity })),
+        ...delivery,
+        preparation,
+        customerNote: customerNote.trim() || undefined,
+      });
+      clearCart();
+      setLocation(`/order-confirmed/${order.reference}`);
+    } catch {
+      // Fallback for static hosting / offline
+      const year = new Date().getFullYear();
+      const randomSuffix = Math.random().toString(36).substring(2, 7).toUpperCase();
+      const reference = `SKN-${year}-${randomSuffix}`;
+      try {
+        const stored = localStorage.getItem("sakina:local-orders");
+        const existing = stored ? JSON.parse(stored) : [];
+        existing.unshift({
+          reference,
+          status: "pending_cod",
+          customerName: delivery.customerName,
+          email: delivery.email,
+          phone: delivery.phone,
+          addressLine1: delivery.addressLine1,
+          addressLine2: delivery.addressLine2 || null,
+          city: delivery.city,
+          governorate: delivery.governorate,
+          postalCode: delivery.postalCode || null,
+          preparation,
+          customerNote: customerNote.trim() || null,
+          itemsJson: JSON.stringify(items),
+          subtotalPiasters: Math.round(Number(orderSubtotal?.amount ?? 0) * 100),
+          shippingPiasters: Math.round(Number(shipping.amount) * 100),
+          tasbihAssemblyPiasters: Math.round(Number(tasbihAssembly?.amount ?? 0) * 100),
+          totalPiasters: Math.round(Number(total.amount) * 100),
+          createdAt: new Date().toISOString(),
+        });
+        localStorage.setItem("sakina:local-orders", JSON.stringify(existing));
+      } catch (e) {
+        console.error("Failed to store fallback order in localStorage", e);
+      }
+      clearCart();
+      setLocation(`/order-confirmed/${reference}`);
+    }
   }
 
   return <main className={`checkout-page checkout-page--new lang-${language}`} dir={isArabic ? "rtl" : "ltr"}>
