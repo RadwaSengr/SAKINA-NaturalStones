@@ -1,0 +1,1 @@
+ALTER TABLE `sakina_orders` ADD `tasbihAssemblyPiasters` int DEFAULT 0 NOT NULL;

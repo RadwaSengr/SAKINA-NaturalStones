@@ -1,0 +1,174 @@
+# Refined SAKINA screens
+
+- [x] Reduce checkout page width and vertical density to align with the compact two-card reference layout.
+- [x] Restore the checkout’s reference-like field grouping, button treatment, and summary hierarchy.
+- [x] Simplify analytics cards and transaction panel to mirror the reference dashboard proportions and labels.
+- [x] Validate both desktop routes visually after the adjustments.
+- [x] Remove seeded orders, customer names, product selections, totals, and default checkout field values.
+- [x] Preserve blank, user-ready empty states for checkout and analytics.
+- [x] Confirm mobile does not hide any desktop collection, bag, checkout, or analytics content.
+- [x] Adjust mobile navigation and table layout so the same data remains accessible on small screens.
+- [x] Verify the main mobile routes at a phone viewport.
+- [x] Add branded guidance and clear field context to the empty checkout page.
+- [x] Add elegant analytics onboarding content without inventing order or customer data.
+- [x] Verify the new informative empty states on desktop and mobile.
+- [x] Reframe the homepage around SAKINA’s founder story, historic-market sourcing, and spiritual comfort.
+- [x] Create a certificate-led product journey with stone origin, identity, care guidance, and nationwide delivery reassurance.
+- [x] Build a fuller storefront structure with collection discovery, trust signals, sourcing story, and journal-style education.
+- [x] Replace the earlier limited layouts with a cohesive new desktop and mobile design system.
+- [x] Verify the redesigned customer journey across representative desktop and mobile routes.
+- [x] Seed the new Shopify storefront with up to two authenticated SAKINA stone products for the initial preview.
+- [x] Reconcile the Shopify cart and product data scaffold with the SAKINA interface.
+- [x] Surface real Shopify products and checkout flow while preserving the source certificate experience.
+- [x] Add a persistent Arabic/English language switch that changes the storefront content and direction.
+- [x] Translate the customer-facing storefront, certificate, cart, product, and checkout-review copy into English.
+- [x] Strengthen the Arabic display type with a more distinctive headline treatment while retaining clear UI typography.
+- [x] Verify Arabic and English desktop and mobile layouts.
+- [x] Verify Arabic desktop views for home, certificate, product detail, and checkout review.
+- [x] Verify Arabic and English mobile views for certificate, product detail, and checkout review.
+- [x] Recheck the Arabic mobile product-detail view after product data hydration to confirm there is no loading-state or horizontal-overflow artifact.
+- [x] Audit Arabic display, body, navigation, form, and commerce text styles across all storefront routes.
+- [x] Replace inconsistent Arabic font fallbacks with a single reliable Arabic UI font and controlled display font usage.
+- [x] Verify the corrected Arabic typography on representative desktop and mobile screens.
+- [x] Verify Arabic typography in the shopping-bag drawer and complete a final route-by-route typography pass.
+- [x] ~~Load TS DAMAS SANS for Arabic and Cormorant Garamond for English through the global font system.~~ Superseded by the user's Noto Sans Arabic selection.
+- [x] Apply Noto Sans Arabic and Cormorant Garamond consistently to every storefront component and language state.
+- [x] Verify the requested font pairing on desktop and mobile in both languages.
+- [x] Replace the pending TS DAMAS SANS request with Noto Sans Arabic across the Arabic storefront.
+- [x] ~~Remove remaining hardcoded typefaces that could override Noto Sans Arabic or Cormorant Garamond.~~ Replaced with language-scoped overrides that prevent legacy declarations from overriding the requested pairing.
+- [x] Verify header, story, product cards, certificate, checkout, and bag typography in Arabic and English after the final cleanup.
+- [x] ~~Replace all remaining legacy font-family declarations with shared Arabic and English typography tokens.~~ Runtime typography is now enforced through shared, language-scoped Noto Sans Arabic and Cormorant Garamond tokens across all components.
+- [x] Remove location chips and location-led wording from the collection cabinet.
+- [x] Generate and apply individual-stone product imagery to replace misbaha imagery in the storefront.
+- [x] Update the initial Shopify product visuals so the live catalog matches the individual-stone concept.
+- [x] Verify the collection on desktop and mobile after the visual simplification.
+- [x] Add several distinct individual stones to Shopify with appropriate storefront prices and product details.
+- [x] Create individual-stone visuals and surface the expanded catalog in the SAKINA cabinet.
+- [x] Add an order preference note for standalone stone or tasbih assembly.
+- [x] Make quantity clearly editable and visible in the order review.
+- [x] Verify catalog expansion and checkout preference flows on desktop and mobile.
+- [x] Replace failed image placeholders for عين النمر والكوارتز الوردي والكوارتز الصافي before delivery.
+- [x] Re-verify the regenerated tiger’s eye, rose quartz, and clear quartz images and replace any remaining failed placeholders.
+- [x] Attach final product images for tiger’s eye, rose quartz, and clear quartz in Shopify so each catalog item has live media.
+- [x] Test a populated cart on desktop and mobile to confirm quantity and the standalone-versus-tasbih note are visible, editable, and saved before checkout.
+- [x] Add a safe-area-aware mobile shell with a compact application header and persistent bottom navigation.
+- [x] Optimize collection cards, product interactions, cart access, and tap targets for one-handed Android and iOS use.
+- [x] Adapt mobile product, certificate, and checkout layouts to the app-like navigation model.
+- [x] Verify the redesigned Arabic and English mobile views on phone-sized screens.
+- [x] Verify final English mobile views for home, product detail, certificate, and checkout after the app-shell redesign.
+- [x] Review the mobile shopping-bag bottom sheet in its open state alongside the bottom navigation.
+- [x] Support a deterministic `bag=open` preview parameter for QA of the mobile shopping-bag bottom sheet.
+- [x] Re-run Arabic and English mobile visual verification with the shopping-bag bottom sheet visibly open.
+- [x] Create a dedicated bilingual collection route for the full SAKINA product cabinet.
+- [x] Remove the product cabinet from the home page while preserving a clear collection call to action.
+- [x] Update desktop and mobile navigation so the collection route is directly accessible.
+- [x] Verify the separated home and collection pages on desktop and mobile.
+- [x] Simplify the desktop taskbar to the essential destinations with clear active states and one primary action.
+- [x] Redesign the mobile bottom navigation around the most-used destinations with a clearer hierarchy.
+- [x] Add consistent page titles, back links, and orientation cues across the storefront routes.
+- [x] Reduce visual competition in outer layout elements while preserving SAKINA’s identity.
+- [x] Verify the simplified navigation journey in Arabic and English on desktop and mobile.
+- [x] Add a navigation component test covering essential destinations and active-state cues.
+- [x] Standardize route-level orientation cues across home, cabinet, certificate, stone detail, and checkout.
+- [x] Verify English collection and certificate routes on desktop and mobile after the navigation simplification.
+- [x] Add the shared route-level orientation cue to Home and re-verify all primary routes.
+- [x] Replace the external Shopify checkout redirect with an in-site bilingual checkout flow.
+- [x] Add structured delivery contact and Egyptian address fields with validation and a clear order summary.
+- [x] Add cash on delivery as the available order method and a non-collecting card-payment preview marked as unavailable.
+- [x] Persist submitted cash-on-delivery orders safely and show a bilingual confirmation page without storing card data.
+- [x] Test and visually verify the revised checkout on desktop and mobile in Arabic and English.
+- [x] Add a deterministic populated checkout preview and visually verify the in-site form itself in both languages.
+- [x] Make the populated checkout preview fully storage-independent and re-verify it on desktop and mobile.
+- [x] Audit product and editorial image rendering to identify avoidable loading delays.
+- [x] Prioritize above-the-fold imagery and defer non-critical images with stable layout placeholders.
+- [x] Verify faster image appearance and visual stability on desktop and mobile.
+- [x] Run reproducible image-load QA for prioritized and deferred imagery, then record the loading strategy in tests. Earth-stone delivery fell from 4.5 MB / 2.71 s to 71 KB / 1.21 s in a cold fetch, with the first cabinet image prioritized and later cards deferred.
+- [x] Add automated coverage for hero preload and run a cold-load check on a deferred stone image, then re-verify key routes. The deferred amethyst asset fell from 4.0 MB to 54 KB; loading policy is covered by 13 passing tests.
+- [x] Re-verify the final hero preload on Home and the WebP stone image on mobile before delivery.
+- [x] Show the cached WebP stone image immediately inside the product-detail loading state.
+- [x] Define owner-only access for an internal order-management dashboard.
+- [x] Extend order statuses to preparation, in-transit, and delivered, with secure status updates.
+- [x] Build a responsive owner dashboard with order totals, customer delivery details, item summaries, and status filters.
+- [x] Test owner access, status updates, and desktop/mobile dashboard behavior.
+- [x] Add visible error feedback for failed owner status updates and verify the authenticated dashboard with live order controls.
+- [x] Diagnose and fix the invalid OAuth state preventing the owner from signing in to the order dashboard.
+- [x] Trace and correct the persistent OAuth callback state mismatch without weakening login security.
+- [x] Test visible status-update failure feedback and verify the authenticated owner dashboard on a mobile viewport.
+- [x] Simulate a failed status update followed by a successful retry and verify the owner error banner lifecycle.
+- [x] Add an interactive component test that drives the owner status mutation through failure and success.
+- [x] Add a subtle owner-only link from the storefront into the protected order dashboard.
+- [x] Verify the owner entry point is available to the owner and absent from customer navigation on desktop and mobile.
+- [x] Verify the owner entry link at a real phone viewport and confirm its absence for a logged-out customer session.
+- [x] Verify the owner link in a true mobile browser viewport and confirm its absence in a separate unauthenticated storefront session.
+- [x] Run isolated browser-session checks for owner-mobile visibility and visitor navigation absence before release.
+- [x] Add isolated responsive client-role checks for desktop and phone header visibility rules.
+- [x] Add a clear bilingual return-to-home action inside the owner dashboard and verify its navigation.
+- [x] Prove the owner dashboard return-to-home link changes the live route in Arabic and English.
+- [x] Set a quality-based live price ladder for all six stones within 300–800 EGP.
+- [x] Add a transparent quantity-based tasbih assembly surcharge of 500–1,000 EGP in checkout.
+- [x] Persist the tasbih surcharge with each order and show its breakdown in owner management.
+- [x] Test and visually verify Arabic and English checkout totals for a single stone and a tasbih order.
+- [x] Remove remaining customer-facing Shopify catalog and cart dependencies so shopping remains entirely in SAKINA.
+- [x] Keep live catalog display, cart updates, checkout, tasbih calculation, and orders inside the website without external redirects.
+- [x] Re-verify no customer-facing Shopify text, URL, or network dependency remains across shopping and order routes.
+- [x] Prevent checkout quantity controls from submitting the COD form while the customer is editing quantities.
+
+- [x] Add an in-app owner-management entry in the authenticated mobile and desktop navigation, without external links.
+- [x] Verify the owner entry remains hidden for customer and logged-out sessions while `/owner` stays protected.
+- [x] Save and re-verify the in-app owner navigation on phone and desktop.
+
+- [x] Make the owner-management page and in-app management entry visible only to the owner admin account.
+- [x] Verify unauthenticated and non-admin users cannot view or access owner orders, on desktop and mobile.
+- [x] Re-run tests and save a checkpoint after the owner-only privacy fix.
+
+- [x] Add a clear in-app owner sign-in entry so the owner can return after logging out without exposing owner content.
+- [x] Verify owner sign-in recovery, owner-only visibility, and logout return behavior on desktop and mobile.
+- [x] Run the full checks and save a checkpoint for the owner sign-in recovery flow.
+
+- [x] Provide a clear phone-friendly owner sign-in recovery path after logout without exposing order data.
+- [x] Hide the owner-management shortcut from the default mobile taskbar and reveal it only through an intentional owner swipe gesture.
+- [x] Verify swipe behavior, owner-only visibility, logout recovery, and responsive layouts before saving the update.
+- [x] Prevent the hidden mobile owner-swipe panel from rendering on desktop.
+- [x] Save the verified phone owner-recovery and swipe-navigation update.
+
+- [x] Make the mobile swipe panel render visibly after an upward swipe instead of remaining hidden.
+- [x] Allow any phone to reveal only a generic owner sign-in entry by swipe after logout, without revealing order data or an owner tab.
+- [x] Verify the swipe-to-sign-in flow at a real mobile viewport and confirm desktop stays unchanged.
+- [x] Save the corrected swipe-to-sign-in flow after the final mobile verification.
+
+- [x] Add a visible top-level «الطلبات» entry for the signed-in owner on mobile that opens the private owner orders page.
+- [x] Keep the orders entry hidden from customers and signed-out visitors while preserving the protected owner route.
+- [x] Verify the owner orders entry and separate order page on real phone and desktop viewports before saving.
+- [x] Save the verified mobile owner-orders entry update.
+
+- [x] Diagnose why the installed/mobile published view is serving an older SAKINA build than the latest checkpoint.
+- [x] Ensure the published mobile app refreshes to the current build and visibly shows the owner orders entry.
+- [x] Verify the update from the published domain on a mobile viewport and save the confirmed release.
+
+- [x] Diagnose the repeated missing owner-orders entry in the published mobile session after sign-in.
+- [x] Make owner orders reachable through a direct in-app authenticated control that survives mobile layout and refresh.
+- [x] Verify the published mobile session shows and opens «الطلبات» after owner sign-in before saving.
+
+- [x] Fix the mobile owner-page orders button so its Arabic label is visibly readable and not rendered as a blank dark pill.
+- [x] Return the owner directly to `/owner` after mobile sign-in from the swipe access panel, rather than leaving her on the storefront.
+- [x] Fix the OAuth completion path that still redirects a mobile owner to the storefront after sign-in instead of `/owner`.
+- [x] Verify a sign-in initiated for the owner returns to the published orders page and does not expose order data before authentication.
+- [x] Validate all owner-login and orders changes against [deployed preview] rather than the preview URL.
+- [x] Resolve the published owner identity mismatch where the signed-in Radwa account is admin but `isOwner` is false.
+- [x] Verify only the corrected owner identity can view the orders entry and `/owner` on the published mobile domain.
+- [x] Record a concrete published-domain owner sign-in round-trip from the signed-out `/owner` gate back to `/owner` with orders visible. The owner completed the published-link check and confirmed the resulting orders screen was correct.
+- [x] Capture a browser-observed published OAuth round-trip from the signed-out `/owner` gate to the authenticated `/owner` orders screen.
+- [x] Record the exact pre-login and post-login published URL states from that browser-observed round-trip.
+- [x] Send a private owner notification after a new cash-on-delivery order is safely created.
+- [x] Add a protected owner-only Excel export containing the currently listed SAKINA orders.
+- [x] Add a clear Arabic export control to the owner orders page without exposing data to customers.
+- [x] Test notification failure handling, Excel columns, and owner-only access controls.
+- [x] Verify the new notification and Excel control on the published SAKINA domain before release.
+- [x] Add owner-only start and end date filters to the orders page.
+- [x] Filter the visible order list and the Excel export using the selected inclusive date range.
+- [x] Add clear empty, invalid-range, and reset states for date filtering in Arabic and English.
+- [x] Test date boundaries, Excel export rows, and published owner-only behavior.
+
+- [ ] Review the published SAKINA domain on a desktop viewport to ensure feature parity with the mobile experience.
+- [ ] Align desktop navigation, owner access, date filtering, and export controls to match the mobile behavior exactly.
+- [ ] Save and verify the aligned desktop experience on the published domain.

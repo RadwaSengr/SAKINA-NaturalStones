@@ -1,0 +1,28 @@
+/* Mobile presentation of the dedicated SAKINA cabinet. */
+@media (max-width:680px) {
+  .header-collection-link { display:none; }
+  .mobile-tabbar { grid-template-columns:repeat(4,minmax(0,1fr)); gap:3px; padding-right:11px; padding-left:11px; }
+  .mobile-tabbar button { min-height:59px; border-radius:16px; font-size:9px; }
+  .mobile-tabbar button.is-active { box-shadow:inset 0 0 0 1px rgba(7,60,52,.05); }
+  .route-context { width:calc(100% - 32px); padding-top:14px; font-size:9px; }
+  .route-context a { min-height:28px; padding:0 10px; }
+  .owner-dashboard-link { min-height:30px; padding:0 6px; justify-content:center; gap:3px; border-radius:10px; font-size:8px; }
+  .route-context--home { width:auto; margin:0 0 11px; padding:0; }
+  .collection-page { min-height:calc(100svh - 64px - env(safe-area-inset-top)); padding-bottom:calc(82px + env(safe-area-inset-bottom)); }
+  .collection-page__hero { width:calc(100% - 32px); min-height:300px; padding:53px 0 33px; display:block; }
+  .collection-page__hero h1 { font-size:55px; }
+  .collection-page__hero p { font-size:13px; line-height:1.8; }
+  .collection-page__mark { position:absolute; top:53px; left:0; width:48px; min-height:94px; border-right:0; }
+  .collection-page__mark i { height:28px; }
+  .collection-page__mark span { width:26px; height:26px; font-size:8px; }
+  .collection-page__mark svg { width:19px; }
+  .collection-guide { position:static; margin-top:20px; min-height:42px; }
+  .collection-cabinet { padding:26px 16px 56px; }
+  .collection-cabinet .stone-grid { gap:14px; }
+  .cabinet-card-meta { font-size:8px; }
+  .collection-page__footer { width:calc(100% - 32px); padding:26px 0 18px; align-items:start; flex-direction:column; }
+  .collection-page__footer p { font-size:12px; }
+}
+
+/* A narrow header preview is available through ?mobile=1 for authenticated QA. */
+.store-header--mobile-preview { height:72px; max-width:430px; margin-inline:auto; }.store-header--mobile-preview .store-header__inner { width:calc(100% - 24px); grid-template-columns:auto 1fr auto; }.store-header--mobile-preview .brand-lockup { grid-template-columns:25px auto; grid-template-rows:20px; column-gap:6px; }.store-header--mobile-preview .brand-lockup .brand-mark { width:25px; height:25px; grid-row:1; }.store-header--mobile-preview .brand-lockup span { font-size:17px; }.store-header--mobile-preview .brand-lockup small,.store-header--mobile-preview .store-nav a:nth-child(2),.store-header--mobile-preview .store-nav a:nth-child(3),.store-header--mobile-preview .header-collection-link { display:none; }.store-header--mobile-preview .store-nav { justify-content:center; gap:13px; }.store-header--mobile-preview .store-nav a { font-size:9px; white-space:nowrap; }.store-header--mobile-preview .header-actions { gap:5px; }.store-header--mobile-preview .owner-dashboard-link { min-height:30px; padding:0 6px; justify-content:center; gap:3px; border-radius:10px; font-size:8px; }.store-header--mobile-preview .language-switch { width:28px; height:28px; font-size:9px; }.store-header--mobile-preview .bag-trigger { width:34px; height:34px; }

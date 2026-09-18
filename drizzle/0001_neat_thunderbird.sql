@@ -1,0 +1,2 @@
+ALTER TABLE `sakina_orders` MODIFY COLUMN `status` enum('pending_cod','preparing','in_transit','delivered') NOT NULL DEFAULT 'pending_cod';--> statement-breakpoint
+ALTER TABLE `sakina_orders` ADD `updatedAt` timestamp DEFAULT (now()) NOT NULL ON UPDATE CURRENT_TIMESTAMP;
