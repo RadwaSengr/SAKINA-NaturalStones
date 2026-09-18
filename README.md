@@ -62,3 +62,32 @@ Build the project for production with:
 pnpm build
 ```
 
+Start the production server with:
+
+```bash
+pnpm start
+```
+
+## Deployment
+
+This full-stack application (Node.js/Express + React Vite + tRPC) can be deployed easily on:
+
+### Option 1: Render.com (Recommended)
+1. Go to [Render.com](https://render.com) and click **New +** -> **Web Service**.
+2. Connect your GitHub repository: `https://github.com/RadwaSengr/SAKINA-NaturalStones`.
+3. Configure settings:
+   - **Environment**: `Node`
+   - **Build Command**: `pnpm install && pnpm build`
+   - **Start Command**: `pnpm start`
+4. Add Environment Variables:
+   - `NODE_ENV`: `production`
+   - `JWT_SECRET`: (any random secure string)
+   - `OWNER_OPEN_ID`: `sakina_owner_admin`
+   - *(Optional)* `DATABASE_URL`: MySQL connection URL (if omitted, uses local persistent storage).
+
+### Option 2: Railway.app
+1. Go to [Railway.app](https://railway.app) and create a **New Project** from GitHub.
+2. Select `RadwaSengr/SAKINA-NaturalStones`.
+3. Railway automatically detects the project and starts it.
+
+
