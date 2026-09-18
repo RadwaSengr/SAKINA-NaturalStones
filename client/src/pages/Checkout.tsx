@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { cabinetStoneImage, formatMoney, localizedProductTitle } from "@/lib/sakina";
+import { assetUrl, cabinetStoneImage, formatMoney, localizedProductTitle } from "@/lib/sakina";
 import { calculateTasbihAssemblyPiasters, piastersToMoney } from "@shared/commerce/pricing";
 import { trpc } from "@/lib/trpc";
 import { ArrowLeft, ArrowRight, BadgeCheck, CreditCard, LockKeyhole, MapPin, Minus, PackageCheck, Plus, ShieldCheck, Truck } from "lucide-react";
@@ -108,7 +108,7 @@ export default function Checkout() {
       </section>
       <aside className="checkout-review__panel">
         <div className="review-panel__head"><div><span className="eyebrow">{copy.bag}</span><h2>{copy.summary}</h2></div><span>{displayItemCount} {copy.pieces}</span></div>
-        {displayItems.length === 0 ? <div className="review-empty"><img src="/assets/sakina-mark_d9d397db.png" alt="" /><p>{copy.empty}</p><Link href="/collection">{copy.explore} <Arrow size={15} /></Link></div> : <form className="in-site-checkout" onSubmit={handleSubmit}>
+        {displayItems.length === 0 ? <div className="review-empty"><img src={assetUrl("assets/sakina-mark_d9d397db.png")} alt="" /><p>{copy.empty}</p><Link href="/collection">{copy.explore} <Arrow size={15} /></Link></div> : <form className="in-site-checkout" onSubmit={handleSubmit}>
           {isPreviewing && <p className="checkout-preview-notice">{copy.preview}</p>}
           <div className="review-lines">{displayItems.map(item => <div className="review-line" key={item.lineId}>
             <img src={cabinetStoneImage(item.productHandle)} alt={localizedProductTitle(item.productHandle, item.productTitle, language)} loading="lazy" decoding="async" />

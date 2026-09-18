@@ -3,7 +3,7 @@ import React from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useLanguage, type Language } from "@/contexts/LanguageContext";
 import { trpc } from "@/lib/trpc";
-import { cabinetStoneImage, formatMoney, localizedProductDescription, localizedProductTitle, stonePassport } from "@/lib/sakina";
+import { assetUrl, cabinetStoneImage, formatMoney, localizedProductDescription, localizedProductTitle, stonePassport } from "@/lib/sakina";
 import { sakinaCatalog } from "@shared/commerce/catalog";
 import type { Product } from "@shared/commerce/types";
 import { ArrowLeft, ArrowRight, ArrowUpLeft, Gem, Sparkles } from "lucide-react";
@@ -42,7 +42,7 @@ export default function Collection() {
   return <main className={`collection-page lang-${language}`} dir={isArabic ? "rtl" : "ltr"}>
     <div className="route-context"><span>{isArabic ? "أنتِ الآن في" : "You are in"}</span><strong>{copy.kicker}</strong><Link href="/">{isArabic ? "الرئيسية" : "Home"}</Link></div>
     <section className="collection-page__hero"><div><span className="eyebrow">{copy.kicker}</span><h1>{copy.title}</h1><p>{copy.body}</p></div><div className="collection-page__mark"><Gem size={23} /><span>01</span><i /></div><Link href="/certificate" className="collection-guide">{copy.guide} <ArrowUpLeft size={16} /></Link></section>
-    <section className="collection-cabinet" aria-label={isArabic ? "مجموعة الأحجار" : "Stone collection"}>{isLoading && products.length === 0 ? <div className="stone-loading"><Sparkles size={19} /> {copy.loading}</div> : products.length === 0 ? <div className="catalog-empty"><img src="/assets/sakina-mark_d9d397db.png" alt="" /><p>{copy.empty}</p></div> : <div className="stone-grid">{products.map((product, index) => <CabinetStoneCard product={product} index={index} language={language} copy={copy} key={product.id} />)}</div>}</section>
+    <section className="collection-cabinet" aria-label={isArabic ? "مجموعة الأحجار" : "Stone collection"}>{isLoading && products.length === 0 ? <div className="stone-loading"><Sparkles size={19} /> {copy.loading}</div> : products.length === 0 ? <div className="catalog-empty"><img src={assetUrl("assets/sakina-mark_d9d397db.png")} alt="" /><p>{copy.empty}</p></div> : <div className="stone-grid">{products.map((product, index) => <CabinetStoneCard product={product} index={index} language={language} copy={copy} key={product.id} />)}</div>}</section>
     <section className="collection-page__footer"><p>{isArabic ? "كل قطعة تصل مع شهادة سكينة خاصة بها." : "Every piece arrives with its own SAKINA passport."}</p><Link href="/certificate">{isArabic ? "اكتشفي شهادة الحجر" : "Discover the stone passport"} <Arrow size={15} /></Link></section>
   </main>;
 }

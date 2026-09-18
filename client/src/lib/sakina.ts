@@ -123,21 +123,28 @@ export function localizedProductDescription(
   );
 }
 
+export function assetUrl(path: string): string {
+  const base = (import.meta.env?.BASE_URL || "/").replace(/\/+$/, "");
+  const cleanPath = path.startsWith("/") ? path.slice(1) : path;
+  return base ? `${base}/${cleanPath}` : `/${cleanPath}`;
+}
+
 /** Curated product photography for the website-owned cabinet. */
 export function cabinetStoneImage(handle: string) {
   if (
     handle === "royal-yemeni-agate" ||
     handle === "royal-yemeni-agate-misbaha"
   )
-    return "/assets/Royal-Yemeni-Agate.PNG";
+    return assetUrl("assets/Royal-Yemeni-Agate.PNG");
   if (
     handle === "earth-essence-stone" ||
     handle === "earth-essence-natural-stone-misbaha"
   )
-    return "/assets/Earth-Essence-Stone.PNG";
-  if (handle === "amethyst-stone") return "/assets/Quiet-Amethyst.PNG";
-  if (handle === "tigers-eye-stone") return "/assets/Golden-Tiger's-Eye.PNG";
-  if (handle === "rose-quartz-stone") return "/assets/Soft-Rose-Quartz.PNG";
-  if (handle === "clear-quartz-stone") return "/assets/Clear-Quartz.PNG";
-  return "/assets/stone-fallback.jpg";
+    return assetUrl("assets/Earth-Essence-Stone.PNG");
+  if (handle === "amethyst-stone") return assetUrl("assets/Quiet-Amethyst.PNG");
+  if (handle === "tigers-eye-stone") return assetUrl("assets/Golden-Tiger's-Eye.PNG");
+  if (handle === "rose-quartz-stone") return assetUrl("assets/Soft-Rose-Quartz.PNG");
+  if (handle === "clear-quartz-stone") return assetUrl("assets/Clear-Quartz.PNG");
+  return assetUrl("assets/stone-fallback.jpg");
 }
+

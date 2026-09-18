@@ -4,7 +4,7 @@ import { startLogin } from "@/const";
 import { useCart } from "@/contexts/CartContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { cabinetStoneImage, formatMoney, localizedProductTitle } from "@/lib/sakina";
+import { assetUrl, cabinetStoneImage, formatMoney, localizedProductTitle } from "@/lib/sakina";
 import { ArrowLeft, ArrowRight, Gem, House, LayoutDashboard, Minus, Plus, ScrollText, ShoppingBag, X } from "lucide-react";
 import { Link, useLocation } from "wouter";
 
@@ -23,7 +23,7 @@ export function StoreHeader() {
     <header className={`store-header lang-${language}${mobilePreview ? " store-header--mobile-preview" : ""}`}>
       <div className="store-header__inner">
         <Link href="/" className="brand-lockup" aria-label="SAKINA home">
-          <img className="brand-mark" src="/assets/sakina-mark_d9d397db.png" alt="" />
+          <img className="brand-mark" src={assetUrl("assets/sakina-mark_d9d397db.png")} alt="" />
           <span>SAKINA</span>
           <small>{isArabic ? "أحجار مختارة بعناية" : "Hand-selected natural stones"}</small>
         </Link>
@@ -97,7 +97,7 @@ export function ShoppingBagDrawer() {
     <aside className={`bag-drawer lang-${language} ${isOpen ? "is-open" : ""}`} aria-hidden={!isOpen} dir={isArabic ? "rtl" : "ltr"}>
       <div className="bag-drawer__top"><div><span className="eyebrow">{isArabic ? "اختياراتك الهادئة" : "YOUR QUIET CHOICES"}</span><h2>{isArabic ? "حقيبة سكينة" : "Your SAKINA Bag"}</h2></div><button className="drawer-close" onClick={closeCart} aria-label={isArabic ? "إغلاق" : "Close"}><X size={22} /></button></div>
       <div className="bag-lines">
-          {items.length === 0 ? <div className="bag-empty"><img src="/assets/sakina-mark_d9d397db.png" alt="" /><p>{isArabic ? "كل قطعة تبدأ بحجرٍ له قصة. اختاري ما يناسب لحظتك." : "Every piece begins with a stone and a story. Choose one for your moment."}</p><button className="text-button" onClick={() => { closeCart(); setLocation("/collection"); }}>{isArabic ? "اكتشفي المجموعة" : "Explore the collection"} <BackArrow size={14} /></button></div> : items.map(item => <div className="bag-line" key={item.lineId}>
+          {items.length === 0 ? <div className="bag-empty"><img src={assetUrl("assets/sakina-mark_d9d397db.png")} alt="" /><p>{isArabic ? "كل قطعة تبدأ بحجرٍ له قصة. اختاري ما يناسب لحظتك." : "Every piece begins with a stone and a story. Choose one for your moment."}</p><button className="text-button" onClick={() => { closeCart(); setLocation("/collection"); }}>{isArabic ? "اكتشفي المجموعة" : "Explore the collection"} <BackArrow size={14} /></button></div> : items.map(item => <div className="bag-line" key={item.lineId}>
           <img className="bag-line__image" src={cabinetStoneImage(item.productHandle)} alt={localizedProductTitle(item.productHandle, item.productTitle, language)} loading="lazy" decoding="async" /><div className="bag-line__copy"><p>{localizedProductTitle(item.productHandle, item.productTitle, language)}</p>{item.variantTitle !== "Default Title" && <span>{item.variantTitle}</span>}<div className="quantity-stepper"><button disabled={loading} onClick={() => updateQuantity(item.lineId, item.quantity - 1)} aria-label={isArabic ? "تقليل الكمية" : "Decrease quantity"}><Minus size={12} /></button><strong>{item.quantity}</strong><button disabled={loading} onClick={() => updateQuantity(item.lineId, item.quantity + 1)} aria-label={isArabic ? "زيادة الكمية" : "Increase quantity"}><Plus size={12} /></button></div></div><div className="bag-line__end"><strong>{formatMoney(item.lineTotal, language)}</strong><button disabled={loading} onClick={() => removeItem(item.lineId)}>{isArabic ? "إزالة" : "Remove"}</button></div>
         </div>)}
       </div>
