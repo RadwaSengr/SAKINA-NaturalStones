@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useReducer, useState } from "react";
-import { CircleAlert, ClipboardList, Download, House, MapPin, PackageCheck, Phone, RefreshCw, ShieldCheck, Truck, UserRound } from "lucide-react";
+import { CircleAlert, ClipboardList, Download, House, LogOut, MapPin, PackageCheck, Phone, RefreshCw, ShieldCheck, Truck, UserRound } from "lucide-react";
 import DashboardLayout from "@/components/DashboardLayout";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { assetUrl } from "@/lib/sakina";
 import { trpc } from "@/lib/trpc";
 import { startLogin } from "@/const";
 import { Link, useLocation } from "wouter";
@@ -34,6 +35,8 @@ type OrderForExport = {
   tasbihAssemblyPiasters: number;
   totalPiasters: number;
   createdAt: Date;
+  updatedAt?: Date;
+  customerNote?: string | null;
 };
 
 function parseItems(serialized: string): StoredItem[] {
@@ -141,7 +144,7 @@ export function ownerStatusFeedbackReducer(_hasError: boolean, action: "failed" 
 }
 
 export default function OwnerOrders() {
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, logout } = useAuth();
   const { language, isArabic } = useLanguage();
   const [, setLocation] = useLocation();
   const isOwner = Boolean(user?.isOwner);
@@ -183,7 +186,25 @@ export default function OwnerOrders() {
     all: "All", pending_cod: "New orders", preparing: "Preparing", in_transit: "In transit", delivered: "Delivered", total: "Order total", delivery: "Delivery details", items: "Order items", preference: "Preparation", tasbihFee: "Tasbih assembly & beads", note: "Customer note", status: "Order status", updated: "Last updated", noOrders: "There are no orders in this status yet.", noOrdersInRange: "There are no orders in the selected date range.", loading: "Arranging the order register…", error: "We could not open the order register.", updateError: "The change was not saved. Choose the status again to retry.", retry: "Try again", guest: "Customer", address: "Address", phone: "Phone", details: "Order details", updating: "Saving…", access: "Owner-only access", home: "Back to home", dateFilter: "Filter by date", fromDate: "From", toDate: "To", resetDates: "Clear dates", invalidRange: "The start date must be on or before the end date.", visibleOrders: "matching orders",
   };
 
-  const orders = orderQuery.data ?? [];
+  const localOrders = useMemo<OrderForExport[]>(() => {
+    if (typeof window === "undefined") return [];
+    try {
+      const raw = localStorage.getItem("sakina:local-orders");
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed)
+        ? parsed.map((o: any) => ({
+            ...o,
+            createdAt: new Date(o.createdAt),
+            updatedAt: new Date(o.updatedAt || o.createdAt),
+          }))
+        : [];
+    } catch {
+      return [];
+    }
+  }, []);
+
+  const orders = (orderQuery.data && orderQuery.data.length > 0) ? orderQuery.data : localOrders;
   const isDateRangeInvalid = Boolean(startDate && endDate && startDate > endDate);
   const dateFilteredOrders = useMemo(() => isDateRangeInvalid ? [] : filterOrdersByDateRange(orders, startDate, endDate), [orders, startDate, endDate, isDateRangeInvalid]);
   const counts = useMemo(() => Object.fromEntries(statuses.map(status => [status, dateFilteredOrders.filter(order => order.status === status).length])) as Record<OrderStatus, number>, [dateFilteredOrders]);
@@ -203,11 +224,31 @@ export default function OwnerOrders() {
   };
 
   if (authLoading) return <main className="owner-gate owner-gate--loading"><RefreshCw size={20} /> {isArabic ? "جارٍ التحقق من الوصول…" : "Checking access…"}</main>;
-  if (!isOwner && !user) return <main className={`owner-gate lang-${language}`} dir={isArabic ? "rtl" : "ltr"}><ShieldCheck size={28} /><h1>{copy.loginTitle}</h1><p>{copy.loginBody}</p><button type="button" className="owner-login-button" onClick={() => startLogin("/owner")}><ShieldCheck size={16} />{copy.login}</button></main>;
+  if (!isOwner && !user) return (
+    <main className={`owner-gate lang-${language}`} dir={isArabic ? "rtl" : "ltr"}>
+      <img
+        src={assetUrl("assets/sakina-mark_d9d397db.png")}
+        alt="SAKINA"
+        style={{ width: 68, height: 68, borderRadius: "50%", padding: 6, background: "rgba(7,60,52,0.06)", border: "1px solid rgba(7,60,52,0.15)", marginBottom: 8 }}
+      />
+      <div className="confirmation-mark" style={{ marginBottom: 4 }}>
+        <ShieldCheck size={28} />
+      </div>
+      <span className="eyebrow">{copy.eyebrow}</span>
+      <h1>{copy.loginTitle}</h1>
+      <p>{copy.loginBody}</p>
+      <button type="button" className="owner-login-button" onClick={() => startLogin("/owner")}>
+        <ShieldCheck size={16} />{copy.login}
+      </button>
+      <Link href="/" className="back-link" style={{ marginTop: 14 }}>
+        <House size={14} /> {copy.home}
+      </Link>
+    </main>
+  );
   if (!isOwner) return null;
 
   return <DashboardLayout><main className={`owner-dashboard lang-${language}${mobilePreview ? " owner-dashboard--mobile-preview" : ""}`} dir={isArabic ? "rtl" : "ltr"}>
-    <section className="owner-dashboard__hero"><div><span className="eyebrow">{copy.eyebrow}</span><h1>{copy.title}</h1><p>{copy.body}</p></div><div className="owner-dashboard__hero-actions"><Link href="/owner" className="owner-orders-mobile-shortcut"><ClipboardList size={16} /><span>{isArabic ? "الطلبات" : "Orders"}</span></Link><button type="button" className="owner-export-button" onClick={exportVisibleOrders} disabled={!excelModule || isExporting || isDateRangeInvalid || visibleOrders.length === 0}><Download size={16} /><span>{isExporting ? copy.exporting : copy.export}</span></button><div className="owner-dashboard__access"><ShieldCheck size={18} /><span>{copy.access}</span></div><Link href="/" className="owner-home-link"><House size={16} /><span>{copy.home}</span></Link></div></section>
+    <section className="owner-dashboard__hero"><div><span className="eyebrow">{copy.eyebrow}</span><h1>{copy.title}</h1><p>{copy.body}</p></div><div className="owner-dashboard__hero-actions"><Link href="/owner" className="owner-orders-mobile-shortcut"><ClipboardList size={16} /><span>{isArabic ? "الطلبات" : "Orders"}</span></Link><button type="button" className="owner-export-button" onClick={exportVisibleOrders} disabled={!excelModule || isExporting || isDateRangeInvalid || visibleOrders.length === 0}><Download size={16} /><span>{isExporting ? copy.exporting : copy.export}</span></button><div className="owner-dashboard__access"><ShieldCheck size={18} /><span>{copy.access}</span></div><Link href="/" className="owner-home-link"><House size={16} /><span>{copy.home}</span></Link><button type="button" className="owner-home-link" onClick={() => logout()} title={isArabic ? "تسجيل الخروج" : "Sign out"} style={{ cursor: "pointer", border: "1px solid rgba(7,60,52,0.15)", background: "transparent" }}><LogOut size={16} /><span>{isArabic ? "خروج" : "Exit"}</span></button></div></section>
     <section className="owner-date-filter" aria-label={copy.dateFilter}><div className="owner-date-filter__heading"><span className="eyebrow">{copy.dateFilter}</span><b>{visibleOrders.length} {copy.visibleOrders}</b></div><div className="owner-date-filter__fields"><label><span>{copy.fromDate}</span><input type="date" value={startDate} onChange={event => setStartDate(event.target.value)} /></label><label><span>{copy.toDate}</span><input type="date" value={endDate} onChange={event => setEndDate(event.target.value)} /></label><button type="button" onClick={() => { setStartDate(""); setEndDate(""); }} disabled={!startDate && !endDate}>{copy.resetDates}</button></div></section>
     <section className="owner-status-grid" aria-label={copy.status}>
       <button className={activeFilter === "all" ? "is-active" : ""} onClick={() => setActiveFilter("all")}><ClipboardList size={18} /><span>{copy.all}</span><b>{orders.length}</b></button>
@@ -224,7 +265,7 @@ export default function OwnerOrders() {
             <section><span className="owner-section-label"><UserRound size={14} /> {copy.delivery}</span><strong>{order.customerName || copy.guest}</strong><a href={`mailto:${order.email}`}>{order.email}</a><a href={`tel:${order.phone}`}><Phone size={13} /> {order.phone}</a><p><MapPin size={13} /> {address}</p></section>
             <section><span className="owner-section-label"><ClipboardList size={14} /> {copy.items}</span>{items.length ? <ul>{items.map((item, index) => <li key={`${item.title}-${index}`}><span>{item.title || "SAKINA stone"} × {item.quantity ?? 1}</span><b>{item.lineTotal?.amount ? `${item.lineTotal.amount} ${item.lineTotal.currencyCode ?? "EGP"}` : ""}</b></li>)}</ul> : <p>—</p>}<small>{copy.preference}: {order.preparation === "tasbih" ? (isArabic ? "تجهيز كسبحة" : "Prepared as a tasbih") : (isArabic ? "قطعة فردية" : "Single stone")}</small>{order.tasbihAssemblyPiasters > 0 && <small>{copy.tasbihFee}: {moneyFromPiasters(order.tasbihAssemblyPiasters, language)}</small>}{order.customerNote && <small className="owner-note">{copy.note}: {order.customerNote}</small>}</section>
           </div>
-          <footer><label><span>{copy.status}</span><select value={order.status} disabled={statusMutation.isPending} onChange={event => { setStatusFeedback("retry"); statusMutation.mutate({ reference: order.reference, status: event.target.value as OrderStatus }); }}>{statuses.map(status => <option value={status} key={status}>{copy[status]}</option>)}</select></label><span className="owner-updated"><Truck size={14} /> {statusMutation.isPending ? copy.updating : `${copy.updated}: ${formatDate(order.updatedAt)}`}</span></footer>
+          <footer><label><span>{copy.status}</span><select value={order.status} disabled={statusMutation.isPending} onChange={event => { setStatusFeedback("retry"); statusMutation.mutate({ reference: order.reference, status: event.target.value as OrderStatus }); }}>{statuses.map(status => <option value={status} key={status}>{copy[status]}</option>)}</select></label><span className="owner-updated"><Truck size={14} /> {statusMutation.isPending ? copy.updating : `${copy.updated}: ${formatDate(order.updatedAt || order.createdAt)}`}</span></footer>
         </article>;
       })}
     </section>}

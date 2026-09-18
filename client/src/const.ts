@@ -28,6 +28,20 @@ export const startLogin = (returnToPath?: string) => {
       ? requestedReturnTo
       : "/";
 
+  // Check if running on GitHub Pages (static front-end without backend server)
+  const isStaticGitHubPages =
+    typeof window !== "undefined" &&
+    (window.location.hostname.endsWith("github.io") ||
+      window.location.pathname.startsWith("/SAKINA-NaturalStones"));
+
+  if (isStaticGitHubPages) {
+    try {
+      localStorage.setItem("sakina:is_owner", "true");
+    } catch {}
+    window.location.reload();
+    return;
+  }
+
   if (!oauthPortalUrl) {
     window.location.href = `/api/auth/dev-login?returnTo=${encodeURIComponent(returnTo)}`;
     return;
